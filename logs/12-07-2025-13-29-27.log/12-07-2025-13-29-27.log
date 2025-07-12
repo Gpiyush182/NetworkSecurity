@@ -1,0 +1,20 @@
+[2025-07-12 13:29:29,467] 16 root - INFO - Initiate data ingestion
+[2025-07-12 13:29:32,616] 61 root - INFO - Performed Train Test Split on the Dataframe
+[2025-07-12 13:29:32,616] 62 root - INFO - Exited split_data_as_train_test function of Data Ingestion Class
+[2025-07-12 13:29:32,616] 68 root - INFO - Exporting train and test file path
+[2025-07-12 13:29:32,661] 76 root - INFO - Exported test and train file paths
+[2025-07-12 13:29:32,661] 18 root - INFO - Data ingestion completed
+[2025-07-12 13:29:32,667] 22 root - INFO - Initiate data validation
+[2025-07-12 13:29:32,748] 31 root - INFO - Required number of columns in the schema: 2
+[2025-07-12 13:29:32,748] 32 root - INFO - Dataframe has columns: 31
+[2025-07-12 13:29:32,748] 31 root - INFO - Required number of columns in the schema: 2
+[2025-07-12 13:29:32,748] 32 root - INFO - Dataframe has columns: 31
+[2025-07-12 13:29:32,873] 24 root - INFO - Data validation completed
+[2025-07-12 13:29:32,873] 27 root - INFO - Initiate data transformation
+[2025-07-12 13:29:32,873] 48 root - INFO - Entered data transformation method
+[2025-07-12 13:29:32,873] 50 root - INFO - Starting data transformation
+[2025-07-12 13:29:32,882] 38 root - INFO - Entered get_data_transformer_object method of DataTransformation class
+[2025-07-12 13:29:32,882] 41 root - INFO - Initialise KNN Imputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[2025-07-12 13:29:32,893] 42 root - INFO - Entered the save_object method of mainutils class
+[2025-07-12 13:29:32,894] 46 root - INFO - Exited the save_object method of mainutils class
+[2025-07-12 13:29:32,895] 31 root - INFO - Data transformation completed

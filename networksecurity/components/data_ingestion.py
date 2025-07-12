@@ -35,7 +35,7 @@ class DataIngestion:
             
             df = pd.DataFrame(list(collection.find()))
             if "_id" in df.columns:
-                df.drop(columns=["_id"], axis=1)
+                df.drop(columns=["_id"], axis=1, inplace=True)
                 
             df.replace({"na": np.nan}, inplace=True)
             return df
