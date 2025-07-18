@@ -10,6 +10,7 @@ from networksecurity.utils.main_utils.utils import load_numpy_array_data,evaluat
 from networksecurity.utils.ml_utils.metric.classification_metric import get_classification_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import r2_score
+import mlflow
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import (RandomForestClassifier, AdaBoostClassifier,GradientBoostingClassifier)
@@ -21,6 +22,18 @@ class ModelTrainer:
             self.data_transformation_artifact = data_transformation_artifact
         except Exception as e:
             raise NetworkSecurityException(e, sys)
+        
+    def track_mlflow(self,best_model,clasificationmetric):
+        with mlflow.start_run():
+            f1_score = clasificationmetric.f1_score
+            precision_score = clasificationmetric.precision_score
+            recall_score = clasificationmetric.recall_score
+            
+            mlflow.log_metric("f1_score",f1_score)
+            mlflow.log_metric("precision_score",precision_score)
+            mlflow.log_metric("recall_score",recall_score)
+            mlflow.sklearn.log_model(best_model,"model")
+            
         
     def train_model(self,x_train,y_train,x_test,y_test):
         models = {"Logistic Regression": LogisticRegression(verbose=1),
@@ -74,9 +87,11 @@ class ModelTrainer:
         classification_train_metric = get_classification_score(y_true=y_train, y_pred=y_train_pred)
         
         ## Track the mlflow
+        self.track_mlflow(best_model,classification_train_metric)
         
         y_test_pred = best_model.predict(x_test)
         classification_test_metric = get_classification_score(y_true=y_test, y_pred=y_test_pred)
+        self.track_mlflow(best_model,classification_test_metric)
         
         preprocessor = load_object(file_path=self.data_transformation_artifact.transformed_object_file_path)
         model_dir_path = os.path.dirname(self.model_trainer_config.trained_model_file_path)
